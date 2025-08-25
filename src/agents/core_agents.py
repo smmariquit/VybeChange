@@ -1,5 +1,5 @@
 """
-Vybe Impact Core Agent Framework
+Vybe Change Core Agent Framework
 Autonomous AI agents for intelligent microdonation orchestration
 """
 
