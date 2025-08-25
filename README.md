@@ -11,8 +11,8 @@
 ![FastAPI](https://img.shields.io/badge/FastAPI-API%20Framework-green)
 
 ## 🚀 Deployment
-- Backend: [API & Admin Dashboard](https://smmariquit-vybe-change-streamlit-demo-lmarq7.streamlit.app/)
-- Frontend: [Vybe Change Prototype](https://www.figma.com/proto/gJz2wvMeqsjPT9xvPdd1OP/BPI?page-id=61%3A179&node-id=61-180&viewport=293%2C40%2C0.94&t=SU0ETIBB94nmSCE2-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=61%3A180)
+- Data Analytics: [API & Admin Dashboard](https://vybechange.streamlit.app/)
+- Mobile App Demo: [Vybe Change on Mobile](https://www.figma.com/proto/gJz2wvMeqsjPT9xvPdd1OP/BPI?page-id=61%3A179&node-id=61-180&viewport=293%2C40%2C0.94&t=SU0ETIBB94nmSCE2-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=61%3A180)
 
 ---
 A smart donation layer embedded into BPI's Vybe online banking app. It detects when users are most likely to give, nudges them with localized, hyper-relevant causes, and delivers verified proof when their change creates real-world impact. No spam, no guesswork. Just sense.
