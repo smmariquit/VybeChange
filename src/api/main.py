@@ -1,5 +1,4 @@
-"""
-ImpactSense BPI VIBE Integration API
+"""ImpactSense BPI VIBE Integration API
 Endpoints for embedding donation prompts into BPI's payment flow
 """
 

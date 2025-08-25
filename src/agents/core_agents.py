@@ -1,5 +1,5 @@
 """
-ImpactSense Core Agent Framework
+Vybe Impact Core Agent Framework
 Autonomous AI agents for intelligent microdonation orchestration
 """
 
@@ -351,25 +351,22 @@ class DonationAmountOptimizerAgent(BaseAgent):
         return math.ceil(amount) - amount
     
     def _generate_amount_options(self, transaction_amount: float, context: UserContext) -> List[float]:
-        """Generate donation amount options based on transaction size"""
-        if transaction_amount >= 3000:
-            base_options = [5.0, 10.0, 20.0, 50.0]
-        elif transaction_amount >= 1000:
-            base_options = [2.0, 5.0, 10.0, 20.0]
-        elif transaction_amount >= 500:
-            base_options = [1.0, 5.0, 10.0]
-        else:
-            base_options = [1.0, 2.0, 5.0]
-        
-        # Filter based on wallet balance (don't suggest more than 1% of balance)
-        max_suggested = context.wallet_balance * 0.01
-        filtered_options = [amt for amt in base_options if amt <= max_suggested]
-        
-        # Ensure we always have at least one option
-        if not filtered_options:
-            filtered_options = [1.0]
-        
-        return filtered_options
+        """Generate donation amount options by rounding up to the nearest tens"""
+        import math
+        # Round up to nearest tens
+        rounded_up = math.ceil(transaction_amount / 10) * 10
+        donation_amount = rounded_up - transaction_amount
+        # Always suggest the round-up amount, and optionally multiples of ten up to 30
+        options = [donation_amount]
+        for extra in [10, 20, 30]:
+            if donation_amount + extra <= context.wallet_balance * 0.01:
+                options.append(donation_amount + extra)
+        # Filter out zero or negative options
+        options = [amt for amt in options if amt > 0]
+        # Ensure at least one option
+        if not options:
+            options = [10.0]
+        return options
     
     def _adjust_for_user_pattern(self, amounts: List[float], avg_donation: float) -> List[float]:
         """Adjust amounts based on user's historical giving pattern"""

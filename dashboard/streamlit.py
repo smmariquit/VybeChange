@@ -1,5 +1,5 @@
 """
-ImpactSense Streamlit Demo App
+Vybe Impact Streamlit Demo App
 Interactive dashboard with API demonstration and explainable AI
 """
 
@@ -17,22 +17,50 @@ from typing import Dict, List, Any
 import sys
 import os
 
+
 # Configure Streamlit
 st.set_page_config(
-    page_title="ImpactSense Demo",
+    page_title="Vybe Impact Demo",
     page_icon="🎯",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
+# Tech Stack Shields & Info Section (Judge-facing)
+st.markdown("""
+<div style='display: flex; gap: 0.5rem; flex-wrap: wrap;'>
+    <img src='https://img.shields.io/badge/Python-3.10%2B-blue' />
+    <img src='https://img.shields.io/badge/Streamlit-%E2%9C%A8-red' />
+    <img src='https://img.shields.io/badge/LangChain-Agentic%20Orchestration-yellow' />
+    <img src='https://img.shields.io/badge/Gemini-Google%20LLM-brightgreen' />
+    <img src='https://img.shields.io/badge/Plotly-Visualization-orange' />
+    <img src='https://img.shields.io/badge/Pandas-Data%20Frames-lightgrey' />
+    <img src='https://img.shields.io/badge/FastAPI-Backend-teal' />
+</div>
+<div style='margin-top: 1rem; padding: 1rem; background: #222; border-radius: 8px; border: 1px solid #eee; color: #fff;'>
+<h3>ℹ️ Info</h3>
+<ul>
+<li><b>Vybe Impact</b> is a next-generation, agentic donation platform for BPI's <b>Vybe online banking app</b>.</li>
+<li><b>Automatic Round-Up:</b> Every purchase is rounded up to the nearest tens (e.g., ₱127 → ₱130, donate ₱3). This makes giving effortless and maximizes impact with spare change.</li>
+<li>Built with Python, Streamlit, LangChain, Gemini (Google Generative AI), Plotly, Pandas, and FastAPI.</li>
+<li>Features context-aware donation prompts, explainable AI, real-time impact tracking, and modern UI/UX.</li>
+<li>See <code>src/agents/core_agents.py</code> for agent architecture.</li>
+</ul>
+</div>
+""", unsafe_allow_html=True)
+
 # Custom CSS
 st.markdown("""
 <style>
+    @import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
+    html, body, [class^="st"], .main-header, .metric-card, .explanation-box, .decision-factor {
+        font-family: 'Roboto', Arial, sans-serif !important;
+    }
     .main-header {
-        background: linear-gradient(90deg, #1f4e79 0%, #2e7d32 100%);
+        background: #f5f5f5;
         padding: 1.5rem;
         border-radius: 10px;
-        color: white;
+        color: #222;
         text-align: center;
         margin-bottom: 2rem;
     }
@@ -40,15 +68,17 @@ st.markdown("""
         background: white;
         padding: 1rem;
         border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        border-left: 4px solid #2e7d32;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        border-left: 4px solid #bbb;
+        color: black;
     }
     .explanation-box {
-        background: #f0f8ff;
-        border: 1px solid #add8e6;
+        background: #f0f0f0;
+        border: 1px solid #ccc;
         border-radius: 8px;
         padding: 1rem;
         margin: 1rem 0;
+        color: black;
     }
     .decision-factor {
         background: #fff3cd;
@@ -56,22 +86,25 @@ st.markdown("""
         border-radius: 5px;
         padding: 0.5rem;
         margin: 0.25rem 0;
+        color: black;
     }
     .positive-factor {
-        background: #d4edda;
+        background: #e6f7e6;
         border-color: #c3e6cb;
+        color: black;
     }
     .negative-factor {
         background: #f8d7da;
         border-color: #f5c6cb;
+        color: black;
     }
 </style>
 """, unsafe_allow_html=True)
 
 
-class ImpactSenseDemo:
+class VybeImpactDemo:
     """Main demo application class"""
-    
+
     def __init__(self):
         self.api_base = "http://localhost:8000"
         self.demo_data = self.load_demo_data()
@@ -79,29 +112,23 @@ class ImpactSenseDemo:
     def load_demo_data(self):
         """Load demo data from files"""
         data = {'users': [], 'transactions': [], 'decisions': [], 'ngos': []}
-        
         try:
             # Load users
             if os.path.exists('data/demo_users.json'):
                 with open('data/demo_users.json', 'r') as f:
                     data['users'] = json.load(f)
-            
             # Load transactions
             if os.path.exists('data/demo_transactions.json'):
                 with open('data/demo_transactions.json', 'r') as f:
                     data['transactions'] = json.load(f)
-            
             # Load decisions
             if os.path.exists('data/demo_decisions.json'):
                 with open('data/demo_decisions.json', 'r') as f:
                     data['decisions'] = json.load(f)
-            
             # Generate NGO performance data
             data['ngos'] = self.generate_ngo_data()
-            
         except Exception as e:
             st.error(f"Error loading data: {e}")
-            
         return data
     
     def generate_ngo_data(self):
@@ -148,108 +175,119 @@ class ImpactSenseDemo:
         
         return ngos
     
-    def render_header(self):
-        """Render app header"""
-        st.markdown("""
-        <div class="main-header">
-            <h1>🎯 ImpactSense Demo Dashboard</h1>
-            <p>Interactive API Demonstration with Explainable AI</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
     def render_sidebar(self):
         """Render sidebar controls"""
-        st.sidebar.title("🔧 Demo Controls")
-        
-        # API Demo Section
-        st.sidebar.header("🔗 API Demo")
-        demo_mode = st.sidebar.selectbox(
-            "Select Demo Mode",
-            ["Live API Demo", "Simulation Mode", "Data Explorer"]
-        )
-        
-        # User Selection for Demo
+        import random
+        demo_mode = "Live API Demo"
+        st.sidebar.title("🧭 Demo Controls")
+        st.sidebar.header("👤 User & Transaction")
+        # Persistent state for sidebar controls
+        if not hasattr(self, 'sidebar_state'):
+            self.sidebar_state = {
+                'selected_user': 0,
+                'transaction_amount': 1200,
+                'transaction_category': "groceries"
+            }
         if self.demo_data['users']:
-            selected_user = st.sidebar.selectbox(
+            col1, col2 = st.sidebar.columns([2,1])
+            with col1:
+                randomize = st.button("Randomize")
+            with col2:
+                st.write("")
+            if randomize:
+                self.sidebar_state['selected_user'] = random.randint(0, min(19, len(self.demo_data['users'])-1))
+                self.sidebar_state['transaction_amount'] = random.randint(50, 5000)
+                self.sidebar_state['transaction_category'] = random.choice(["groceries", "dining", "transportation", "shopping", "entertainment", "bills"])
+            # User selector with city
+            def user_label(x):
+                user = self.demo_data['users'][x]
+                city = user.get('location', {}).get('city', 'Unknown')
+                segment = user.get('segment', 'unknown').title()
+                return f"User {x+1}: {segment}, {city}"
+            self.sidebar_state['selected_user'] = st.sidebar.selectbox(
                 "Select User for Demo",
                 options=range(min(20, len(self.demo_data['users']))),
-                format_func=lambda x: f"User {x+1}: {self.demo_data['users'][x].get('segment', 'unknown').title()}"
+                index=self.sidebar_state['selected_user'],
+                format_func=user_label
             )
+            self.sidebar_state['transaction_amount'] = st.sidebar.slider(
+                "Transaction Amount (₱)", 50, 5000, self.sidebar_state['transaction_amount'])
+            # Category buttons (compact, emojis, one line)
+            st.sidebar.markdown("**Category**:")
+            cat_options = [
+                ("groceries", "🛒"),
+                ("dining", "🍽️"),
+                ("transportation", "🚗"),
+                ("shopping", "🛍️"),
+                ("entertainment", "🎬"),
+                ("bills", "💡")
+            ]
+            # Make the category buttons more compact
+            st.sidebar.markdown(
+                """
+                <style>
+                .stButton > button {
+                    margin: 0 0.1rem;
+                    padding: 0 1rem;
+                }
+                </style>
+                """,
+                unsafe_allow_html=True
+            )
+
+            cat_cols = st.sidebar.columns(len(cat_options))
+            for i, (cat, emoji) in enumerate(cat_options):
+                btn_label = f"{emoji}"
+                if cat_cols[i].button(btn_label, key=f"catbtn_{cat}"):
+                    self.sidebar_state['transaction_category'] = cat
+    # Note: The sidebar retract/expand icon is set by Streamlit and cannot be customized via code. This is a Streamlit UI limitation.
         else:
-            selected_user = 0
-        
-        # Transaction Parameters
+            self.sidebar_state = {
+                'selected_user': 0,
+                'transaction_amount': 1200,
+                'transaction_category': "groceries"
+            }
         st.sidebar.header("💳 Transaction Parameters")
-        transaction_amount = st.sidebar.slider("Transaction Amount (₱)", 50, 5000, 1200)
-        transaction_category = st.sidebar.selectbox(
-            "Category",
-            ["groceries", "dining", "transportation", "shopping", "entertainment", "bills"]
-        )
-        
-        # AI Settings
-        st.sidebar.header("🤖 AI Agent Settings")
+        st.sidebar.markdown(f"<div style='line-height:1.2'><b>Amount:</b> ₱{self.sidebar_state['transaction_amount']}<br>Category: {self.sidebar_state['transaction_category'].title()}</div>", unsafe_allow_html=True)
+        st.sidebar.header("🖥️ Agent Settings")
         likelihood_threshold = st.sidebar.slider("Likelihood Threshold (%)", 0, 100, 65)
+        st.sidebar.markdown("The percentage in which the AI agent will consider a donation opportunity viable.")
         explainable_ai = st.sidebar.checkbox("Enable Explainable AI", value=True)
-        
         return {
             'demo_mode': demo_mode,
-            'selected_user': selected_user,
-            'transaction_amount': transaction_amount,
-            'transaction_category': transaction_category,
+            'selected_user': self.sidebar_state['selected_user'],
+            'transaction_amount': self.sidebar_state['transaction_amount'],
+            'transaction_category': self.sidebar_state['transaction_category'],
             'likelihood_threshold': likelihood_threshold,
             'explainable_ai': explainable_ai
         }
     
     def api_demo_tab(self, settings):
-        """API demonstration tab"""
-        st.header("🔗 Live API Demonstration")
-        
+        st.header("Live API Demonstration")
         if not self.demo_data['users']:
             st.warning("No demo data available. Please generate demo data first.")
             if st.button("Generate Demo Data"):
                 with st.spinner("Generating demo data..."):
-                    # Simulate data generation
                     time.sleep(2)
                     st.success("Demo data generated! Please refresh the page.")
             return
-        
-        # Get selected user
         user = self.demo_data['users'][settings['selected_user']]
-        
-        # Display user profile
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            st.subheader("👤 Selected User Profile")
-            st.json({
-                'id': user['id'],
-                'segment': user['segment'],
-                'wallet_balance': user['wallet_balance'],
-                'donation_history_count': len(user.get('donation_history', [])),
-                'preferred_causes': user.get('preferences', {}).get('causes', [])
-            })
-        
-        with col2:
-            st.subheader("💳 Transaction Context")
-            transaction_context = {
-                'amount': settings['transaction_amount'],
-                'category': settings['transaction_category'],
-                'location': user.get('location', {'city': 'Manila', 'region': 'NCR'}),
-                'timestamp': datetime.now().isoformat()
-            }
-            st.json(transaction_context)
-        
-        # API Call Simulation
-        if st.button("🚀 Evaluate Donation Opportunity", type="primary"):
+        location = user.get('location', {'city': 'Manila', 'region': 'NCR'})
+        transaction_context = {
+            'Amount': settings['transaction_amount'],
+            'Category': settings['transaction_category'],
+            'City': location.get('city', 'Manila'),
+            'Region': location.get('region', 'NCR'),
+            'Timestamp': datetime.now().isoformat()
+        }
+        # Button on top
+        evaluate_clicked = st.button("🚀 Evaluate Donation Opportunity", type="primary")
+        # Show AI results and explainable AI in between button and profile/context
+        if evaluate_clicked:
             with st.spinner("Calling AI agents..."):
-                # Simulate API call
                 result = self.simulate_api_call(user, transaction_context, settings)
-                
-                # Display results
                 st.subheader("📊 AI Decision Results")
-                
                 col1, col2, col3 = st.columns(3)
-                
                 with col1:
                     likelihood_score = result['likelihood_score']
                     color = "green" if likelihood_score >= 70 else "orange" if likelihood_score >= 40 else "red"
@@ -259,21 +297,37 @@ class ImpactSenseDemo:
                         delta=f"Threshold: {settings['likelihood_threshold']}%"
                     )
                     st.markdown(f"<span style='color: {color}'>{'✅ Will Prompt' if result['should_prompt'] else '❌ Skip Prompt'}</span>", unsafe_allow_html=True)
-                
                 with col2:
                     if result.get('recommended_cause'):
-                        st.metric("Recommended Cause", result['recommended_cause']['cause'])
-                        st.metric("Relevance Score", f"{result['recommended_cause']['relevance_score']:.2f}")
-                
+                        ngos = self.demo_data['ngos']
+                        sorted_ngos = sorted(ngos, key=lambda x: (x['total_amount'], x['total_impact_score']))
+                        recommended_ngo = None
+                        for ngo in sorted_ngos:
+                            if ngo['cause'] == result['recommended_cause']['cause']:
+                                recommended_ngo = ngo
+                                break
+                        if recommended_ngo:
+                            st.metric("Recommended NGO", recommended_ngo['name'])
+                            st.metric("Relevance Score", f"{result['recommended_cause']['relevance_score']:.2f}")
+                            st.markdown(f"<b>Why?</b> This NGO is currently low on funds (₱{recommended_ngo['total_amount']:,.0f}) and has an impact score of {recommended_ngo['total_impact_score']:.2f}. Prioritizing donations here can help boost their performance and support their cause.", unsafe_allow_html=True)
+                        else:
+                            st.metric("Recommended Cause", result['recommended_cause']['cause'])
+                            st.metric("Relevance Score", f"{result['recommended_cause']['relevance_score']:.2f}")
                 with col3:
                     if result.get('suggested_amount'):
                         st.metric("Suggested Amount", f"₱{result['suggested_amount']:.2f}")
                         percentage = (result['suggested_amount'] / settings['transaction_amount']) * 100
                         st.metric("% of Transaction", f"{percentage:.1f}%")
-                
-                # Explainable AI Section
                 if settings['explainable_ai']:
                     self.render_explainable_ai(user, transaction_context, result)
+        # User profile and transaction context below
+        col1, col2 = st.columns(2)
+        with col1:
+            st.subheader("👤 Selected User Profile (JSON)")
+            st.json(user)
+        with col2:
+            st.subheader("💳 Transaction Context (JSON)")
+            st.json(transaction_context)
     
     def simulate_api_call(self, user, transaction, settings):
         """Simulate API call with realistic logic"""
@@ -391,22 +445,25 @@ class ImpactSenseDemo:
                 base_amount *= 0.8
             
             max_donation = user.get('preferences', {}).get('max_donation', 50)
+            import random
             suggested_amount = min(base_amount, max_donation)
             suggested_amount = max(suggested_amount, 5.0)  # Minimum ₱5
-            
+            # Randomly round up to nearest tens or hundreds
+            rounding_choice = random.choice([10, 100])
+            suggested_amount = rounding_choice * ((suggested_amount + rounding_choice - 1) // rounding_choice)
             result['suggested_amount'] = round(suggested_amount, 2)
         
         return result
     
     def render_explainable_ai(self, user, transaction, result):
         """Render explainable AI section"""
-        st.subheader("🧠 Explainable AI: How We Arrived at This Decision")
+        st.subheader("Explainable AI: How We Arrived at This Decision")
         
         # Decision flow visualization
         col1, col2 = st.columns([2, 1])
         
         with col1:
-            st.markdown("### 📊 Decision Factors Analysis")
+            st.markdown("### Decision Factors Analysis")
             
             factors_df = pd.DataFrame([
                 {
@@ -458,24 +515,26 @@ class ImpactSenseDemo:
                 height=400
             )
             
-            st.plotly_chart(fig, use_container_width=True)
+            chart_key = f"waterfall_chart_{user.get('id', 'unknown')}_{id(fig)}"
+            st.plotly_chart(fig, use_container_width=True, key=chart_key)
         
         with col2:
-            st.markdown("### 📋 Decision Summary")
+            st.markdown("### Decision Summary")
             
             for factor_type, factor_desc, impact in result['reasoning_factors']:
                 css_class = f"{factor_type}-factor decision-factor"
-                icon = "✅" if factor_type == "positive" else "❌" if factor_type == "negative" else "⚠️"
+                # Remove emoji from icon
+                icon = ""  # No icon
                 
                 st.markdown(f"""
                 <div class="{css_class}">
-                    {icon} <strong>{factor_desc}</strong><br>
+                    <strong>{factor_desc}</strong><br>
                     Impact: {impact:+.0f} points
                 </div>
                 """, unsafe_allow_html=True)
         
         # Feature importance chart
-        st.markdown("### 🎯 Feature Importance in Decision Making")
+        st.markdown("### Feature Importance in Decision Making")
         
         feature_importance = {
             'User Segment': 0.25,
@@ -486,18 +545,19 @@ class ImpactSenseDemo:
             'Category': 0.10
         }
         
-        fig = px.bar(
+        fig2 = px.bar(
             x=list(feature_importance.keys()),
             y=list(feature_importance.values()),
             title="Feature Importance in Likelihood Prediction",
             labels={'x': 'Features', 'y': 'Importance Score'}
         )
-        fig.update_traces(marker_color='lightcoral')
-        st.plotly_chart(fig, use_container_width=True)
+        fig2.update_traces(marker_color='lightcoral')
+        chart2_key = f"feature_importance_chart_{user.get('id', 'unknown')}_{id(fig2)}"
+        st.plotly_chart(fig2, use_container_width=True, key=chart2_key)
     
     def ngo_performance_tab(self):
         """NGO performance visualization tab"""
-        st.header("🏢 NGO Performance Analytics")
+        st.header("NGO Performance Analytics")
         
         if not self.demo_data['ngos']:
             st.warning("No NGO data available.")
@@ -633,7 +693,7 @@ class ImpactSenseDemo:
                 st.metric("Amount Raised (Last 7 days)", f"₱{recent_amount:.0f}")
             
             # Trend analysis with explainable insights
-            st.markdown("### 🧠 AI Performance Insights")
+            st.markdown("### AI Performance Insights")
             
             # Calculate trends
             impact_trend = np.polyfit(range(len(ts_data)), ts_data['impact_score'], 1)[0]
@@ -659,15 +719,11 @@ class ImpactSenseDemo:
             insights.append(f"🏆 **Performance Ranking**: Top {100-percentile:.0f}% of all NGOs")
             
             for insight in insights:
-                st.markdown(f"""
-                <div class="explanation-box">
-                    {insight}
-                </div>
-                """, unsafe_allow_html=True)
+                st.markdown(f"{insight}")
     
     def data_explorer_tab(self):
         """Data exploration tab"""
-        st.header("📊 Data Explorer")
+        st.header("Data Explorer")
         
         # Data overview
         col1, col2, col3 = st.columns(3)
@@ -702,7 +758,28 @@ class ImpactSenseDemo:
             st.warning("No user data available.")
             return
         
-        users_df = pd.DataFrame(self.demo_data['users'])
+        # Parse JSON fields for readability
+        def parse_user_row(user):
+            row = dict(user)
+            # Flatten location
+            loc = row.get('location', {})
+            row['City'] = loc.get('city', '')
+            row['Region'] = loc.get('region', '')
+            # Flatten preferences
+            prefs = row.get('preferences', {})
+            row['Preferred Causes'] = ', '.join(prefs.get('causes', []))
+            row['Max Donation'] = prefs.get('max_donation', '')
+            # Remove raw JSON fields
+            if 'location' in row:
+                del row['location']
+            if 'preferences' in row:
+                del row['preferences']
+            # Flatten donation_history if present
+            if 'donation_history' in row and isinstance(row['donation_history'], list):
+                row['Donation Count'] = len(row['donation_history'])
+                del row['donation_history']
+            return row
+        users_df = pd.DataFrame([parse_user_row(u) for u in self.demo_data['users']])
         
         col1, col2 = st.columns(2)
         
@@ -736,7 +813,23 @@ class ImpactSenseDemo:
             st.warning("No transaction data available.")
             return
         
-        transactions_df = pd.DataFrame(self.demo_data['transactions'])
+        # Parse JSON fields for readability
+        def parse_txn_row(txn):
+            row = dict(txn)
+            loc = row.get('location', {})
+            row['City'] = loc.get('city', '')
+            row['Region'] = loc.get('region', '')
+            if 'location' in row:
+                del row['location']
+            # Flatten prompt_shown and donation_made to Yes/No
+            if 'prompt_shown' in row:
+                row['Prompt Shown'] = 'Yes' if row['prompt_shown'] else 'No'
+                del row['prompt_shown']
+            if 'donation_made' in row:
+                row['Donation Made'] = 'Yes' if row['donation_made'] else 'No'
+                del row['donation_made']
+            return row
+        transactions_df = pd.DataFrame([parse_txn_row(t) for t in self.demo_data['transactions']])
         
         col1, col2 = st.columns(2)
         
@@ -829,27 +922,38 @@ class ImpactSenseDemo:
         if not self.demo_data['decisions']:
             st.warning("No agent decision data available.")
             return
-        
-        decisions_df = pd.DataFrame(self.demo_data['decisions'])
-        
+        # Parse and flatten context/decision data for readability
+        def parse_decision_row(dec):
+            row = dict(dec)
+            # Flatten context if present
+            context = row.get('context', {})
+            if isinstance(context, dict):
+                for k, v in context.items():
+                    row[f'Context: {k}'] = v
+                del row['context']
+            # Flatten decision if present
+            decision = row.get('decision', {})
+            if isinstance(decision, dict):
+                for k, v in decision.items():
+                    row[f'Decision: {k}'] = v
+                del row['decision']
+            return row
+        decisions_df = pd.DataFrame([parse_decision_row(d) for d in self.demo_data['decisions']])
         # Agent performance
-        agent_counts = decisions_df['agent_name'].value_counts()
-        fig = px.bar(
-            x=agent_counts.index,
-            y=agent_counts.values,
-            title="Decisions by Agent Type"
-        )
-        st.plotly_chart(fig, use_container_width=True)
-        
+        if 'agent_name' in decisions_df:
+            agent_counts = decisions_df['agent_name'].value_counts()
+            fig = px.bar(
+                x=agent_counts.index,
+                y=agent_counts.values,
+                title="Decisions by Agent Type"
+            )
+            st.plotly_chart(fig, use_container_width=True)
         # Decision details
         st.subheader("📋 Recent Agent Decisions")
         st.dataframe(decisions_df.head(20))
     
     def run(self):
         """Run the demo application"""
-        
-        # Render header
-        self.render_header()
         
         # Render sidebar and get settings
         settings = self.render_sidebar()
@@ -880,7 +984,7 @@ def main():
         return
     
     # Initialize and run demo
-    demo = ImpactSenseDemo()
+    demo = VybeImpactDemo()
     demo.run()
 
 

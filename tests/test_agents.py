@@ -1,34 +1,66 @@
 """
-Testing Framework for ImpactSense AI Agents
-Comprehensive testing suite for all agent functionality
+Legacy Testing Framework for ImpactSense AI Agents
+This file now serves as a bridge to the new individual test agent architecture
+All agents now follow the input-tool call-output pattern with dedicated test files
 """
 
-import pytest
-import pandas as pd
-import numpy as np
 import json
-from datetime import datetime, timedelta
-from unittest.mock import Mock, patch, MagicMock
-import sys
-import os
-from typing import Dict, List, Any
+import logging
+from datetime import datetime
+from typing import Dict, Any
 
-# Add src to path for imports
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
+# Setup logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-from agents.core_agents import (
-    DonationLikelyScoreAgent, 
-    LocalCauseRecommenderAgent,
-    DonationAmountOptimizerAgent,
-    ImpactSenseOrchestrator,
-    UserContext
-)
-from agents.ml_agents import (
-    MLDonationLikelyScoreAgent,
-    MLDonationAmountOptimizerAgent
-)
-from agents.performance_tracker import AgentPerformanceTracker
-from constants.ngos import NGOS
+def run_legacy_tests() -> Dict[str, Any]:
+    """
+    Run tests using the new individual test agent architecture
+    This function maintains backward compatibility while using the new structure
+    """
+    logger.info("Running tests using new agent architecture...")
+    
+    try:
+        # Import the new test orchestrator
+        from tests.test_orchestrator import run_all_tests
+        
+        # Run comprehensive test suite
+        results = run_all_tests(parallel=True, detailed=True)
+        
+        # Convert to legacy format for compatibility
+        legacy_results = {
+            "test_summary": {
+                "total_tests": results.total_tests_run,
+                "passed_tests": results.total_tests_passed,
+                "failed_tests": results.total_tests_failed,
+                "pass_rate": results.overall_pass_rate,
+                "execution_time_ms": results.execution_time_ms
+            },
+            "agent_results": results.suite_results,
+            "performance_metrics": results.performance_summary,
+            "recommendations": results.recommendations,
+            "execution_successful": results.execution_successful,
+            "timestamp": datetime.now().isoformat(),
+            "architecture": "individual_agents_with_input_tool_output_pattern"
+        }
+        
+        logger.info(f"Tests completed successfully. Pass rate: {results.overall_pass_rate:.2%}")
+        return legacy_results
+        
+    except Exception as e:
+        logger.error(f"Error running tests: {str(e)}")
+        return {
+            "test_summary": {
+                "total_tests": 0,
+                "passed_tests": 0,
+                "failed_tests": 1,
+                "pass_rate": 0.0,
+                "execution_time_ms": 0
+            },
+            "error": str(e),
+            "execution_successful": False,
+            "timestamp": datetime.now().isoformat()
+        }
 
 
 class TestDonationLikelyScoreAgent:
