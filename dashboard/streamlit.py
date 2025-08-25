@@ -1,5 +1,5 @@
 """
-Vybe Impact Streamlit Demo App
+Vybe Change Streamlit Demo App
 Interactive dashboard with API demonstration and explainable AI
 """
 
@@ -20,7 +20,7 @@ import os
 
 # Configure Streamlit
 st.set_page_config(
-    page_title="Vybe Impact Demo",
+    page_title="Vybe Change Demo",
     page_icon="🎯",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -40,7 +40,7 @@ st.markdown("""
 <div style='margin-top: 1rem; padding: 1rem; background: #222; border-radius: 8px; border: 1px solid #eee; color: #fff;'>
 <h3>ℹ️ Info</h3>
 <ul>
-<li><b>Vybe Impact</b> is a next-generation, agentic donation platform for BPI's <b>Vybe online banking app</b>.</li>
+<li><b>Vybe Change</b> is a next-generation, agentic donation platform for BPI's <b>Vybe online banking app</b>.</li>
 <li><b>Automatic Round-Up:</b> Every purchase is rounded up to the nearest tens (e.g., ₱127 → ₱130, donate ₱3). This makes giving effortless and maximizes impact with spare change.</li>
 <li>Built with Python, Streamlit, LangChain, Gemini (Google Generative AI), Plotly, Pandas, and FastAPI.</li>
 <li>Features context-aware donation prompts, explainable AI, real-time impact tracking, and modern UI/UX.</li>
