@@ -11,9 +11,8 @@
 ![FastAPI](https://img.shields.io/badge/FastAPI-API%20Framework-green)
 
 ## 🚀 Deployment
-Backend: [API & Admin Dashboard](https://smmariquit-vybe-change-streamlit-demo-lmarq7.streamlit.app/)
-
-Frontend: [Vybe Impact Prototype](https://www.figma.com/proto/gJz2wvMeqsjPT9xvPdd1OP/BPI?page-id=61%3A179&node-id=61-180&viewport=293%2C40%2C0.94&t=SU0ETIBB94nmSCE2-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=61%3A180)
+- Backend: [API & Admin Dashboard](https://smmariquit-vybe-change-streamlit-demo-lmarq7.streamlit.app/)
+- Frontend: [Vybe Impact Prototype](https://www.figma.com/proto/gJz2wvMeqsjPT9xvPdd1OP/BPI?page-id=61%3A179&node-id=61-180&viewport=293%2C40%2C0.94&t=SU0ETIBB94nmSCE2-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=61%3A180)
 
 ---
 A smart donation layer embedded into BPI's Vybe online banking app. It detects when users are most likely to give, nudges them with localized, hyper-relevant causes, and delivers verified proof when their change creates real-world impact. No spam, no guesswork. Just sense.
@@ -30,9 +29,7 @@ For technical details, see the agent architecture and code in `src/agents/core_a
 *By the team that decided microdonations don't have to be boring or bureaucratic.*
 
 ## 🚩 THE CORE IDEA
-A smart donation layer embedded into BPI's VIBE payment ecosystem. It detects when users are most likely to give, nudges them with localized, hyper-relevant causes, and delivers verified proof when their change creates real-world impact. No spam, no guesswork. Just sense.
-| 🧠 **Behavioral Targeting** | Donation prompts adjust based on wallet balance, order size, spend rhythm, location, and emotional timing |
-| 📊 **Year-End M-PACSense Wrap** | Like Spotify Wrapped, but for the good you've done |
+A smart donation layer embedded into BPI's VIBE payment ecosystem. It detects when users are most likely to give, nudges them with localized, hyper-relevant causes, and delivers verified proof when their change creates real-world impact.
 
 ## ✅ WHAT WE'VE RESOLVED
 - 🎯 Integrate via BPI's VIBE, not individual e-commerce stores
@@ -43,7 +40,6 @@ A smart donation layer embedded into BPI's VIBE payment ecosystem. It detects wh
 - 🏆 Year-end impact storytelling is core to user delight
 - 📈 Behavioral data (order frequency, timing, confirmation time, etc.) guides donation logic
 - 🔗 Must partner directly with NGOs; web scraping is out
-
 
 ## 📁 Project Structure
 ```
@@ -117,7 +113,6 @@ vybe-change/
 |--------|----------|-------------|
 | GET    | /health                      | Health check |
 
-
 ---
 
 ## 🛠️ Developer Quickstart
@@ -167,17 +162,5 @@ pytest tests/
 - See `pyproject.toml` and `requirements.txt` for dependencies.
 - For custom agent logic, see `src/agents/`.
 
-## 🤝 Contributing
-Pull requests and issues are welcome! Please:
-- Follow PEP8 for Python code style.
-- Add docstrings and comments for new modules.
-- Write tests for new features in `tests/`.
-- Document new API endpoints in the README.
-
 ---
-
-## 📚 Documentation
-- [User Journey](docs/user-journey.md)
-- [Agent Architecture](docs/agents/)
-- [NGO Integration](constants/ngos.py)
 
