@@ -162,5 +162,3 @@ pytest tests/
 - See `pyproject.toml` and `requirements.txt` for dependencies.
 - For custom agent logic, see `src/agents/`.
 
----
-
