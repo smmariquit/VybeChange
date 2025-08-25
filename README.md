@@ -1,5 +1,5 @@
 
-# Vybe Impact - Product Reality Sheet (v0.9)
+# Vybe Impact
 
 <!-- Tech Stack Shields -->
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
@@ -10,14 +10,11 @@
 ![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-lightgrey)
 ![FastAPI](https://img.shields.io/badge/FastAPI-API%20Framework-green)
 
+## 🚀 Deployment
+Backend: [API & Admin Dashboard](https://smmariquit-vybe-change-streamlit-demo-lmarq7.streamlit.app/)
+Frontend: [Vybe Impact Prototype](https://www.figma.com/proto/gJz2wvMeqsjPT9xvPdd1OP/BPI?page-id=61%3A179&node-id=61-180&viewport=293%2C40%2C0.94&t=SU0ETIBB94nmSCE2-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=61%3A180)
 
 ---
-- **Python** for backend and orchestration
-- **Streamlit** for interactive dashboards
-- **LangChain** for agentic AI logic
-- **Gemini (Google Generative AI)** for LLM-powered reasoning and explanations
-- **Plotly & Pandas** for data visualization and analytics
-- **FastAPI** for API endpoints and integration
 A smart donation layer embedded into BPI's Vybe online banking app. It detects when users are most likely to give, nudges them with localized, hyper-relevant causes, and delivers verified proof when their change creates real-world impact. No spam, no guesswork. Just sense.
 
 This demo showcases:
@@ -69,16 +66,117 @@ vybe-change/
 └── streamlit_demo.py            # Streamlit deployment entrypoint
 ```
 
-## 🚀 Deployment
-[Vybe Impact Streamlit Demo](https://smmariquit-vybe-change-streamlit-demo-lmarq7.streamlit.app/)
+## Tech Stack
 
+- **Python** for backend and orchestration
+- **Streamlit** for interactive dashboards
+- **LangChain** for agentic AI logic
+- **Gemini (Google Generative AI)** for LLM-powered reasoning and explanations
+- **Plotly & Pandas** for data visualization and analytics
+- **FastAPI** for API endpoints and integration
 
-## 🚀 Next Steps
-1. Review the [User Journey Documentation](docs/user-journey.md)
-2. Examine the [AI Agents Architecture](docs/agents/)
-3. Check [NGO Integration Requirements](constants/ngos.py)
-4. Set up the development environment
-5. Begin prototype development
+## 📡 API Endpoints
+
+### Donation & Recommendation
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST   | /likelihood/analyze           | Analyze donation likelihood |
+| POST   | /causes/recommend            | Recommend causes for donation |
+| POST   | /amounts/optimize            | Suggest optimal donation amount |
+| POST   | /submit-donation             | Submit a donation |
+| GET    | /donations                   | List user donations |
+
+### User & Profile
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST   | /register                    | Register a new user |
+| GET    | /profile                     | Get user profile |
+| PUT    | /profile                     | Update user profile |
+| DELETE | /profile                     | Delete user profile |
+| GET    | /user/{user_id}/impact-summary | Get user's impact summary |
+
+### NGO & Causes
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET    | /ngos                        | List NGOs |
+| GET    | /ngos/{ngo_id}               | Get NGO details |
+| POST   | /ngo/{ngo_id}/submit-proof   | NGO submits proof of impact |
+| GET    | /causes                      | List available causes |
+
+### Analytics & Insights
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET    | /analytics/dashboard         | Analytics dashboard |
+| GET    | /metrics/dashboard           | Metrics dashboard |
+| GET    | /platform/insights           | Platform insights |
+| GET    | /impact-report               | Get impact report |
+
+### System
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET    | /health                      | Health check |
+
 
 ---
-*"Your startup instincts are killer. You're not just building tech—you're rebuilding trust. Keep going."*
+
+## 🛠️ Developer Quickstart
+
+### Prerequisites
+- Python 3.10+
+- Node.js (if working with frontend or integration)
+- [pip](https://pip.pypa.io/en/stable/)
+- [Streamlit](https://streamlit.io/) (for dashboard)
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/smmariquit/vybe-change.git
+cd vybe-change
+```
+
+### 2. Install Python Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Set Up Environment Variables
+Create a `.env` file in the root directory:
+```
+GOOGLE_GEMINI_API_KEY=your_api_key_here
+```
+
+### 4. Run the Streamlit Dashboard
+```bash
+streamlit run streamlit_demo.py
+```
+
+### 5. Run the API Server (FastAPI)
+```bash
+uvicorn src.api.main:app --reload
+```
+
+### 6. Run Tests
+```bash
+pytest tests/
+```
+
+---
+
+## 🧩 Environment & Configuration
+- All sensitive keys (e.g., Gemini API) should be stored in `.env` (never commit secrets).
+- See `pyproject.toml` and `requirements.txt` for dependencies.
+- For custom agent logic, see `src/agents/`.
+
+## 🤝 Contributing
+Pull requests and issues are welcome! Please:
+- Follow PEP8 for Python code style.
+- Add docstrings and comments for new modules.
+- Write tests for new features in `tests/`.
+- Document new API endpoints in the README.
+
+---
+
+## 📚 Documentation
+- [User Journey](docs/user-journey.md)
+- [Agent Architecture](docs/agents/)
+- [NGO Integration](constants/ngos.py)
+
