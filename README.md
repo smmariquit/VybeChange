@@ -1,5 +1,5 @@
 
-# Vybe Change
+# Vybe Impact
 
 <!-- Tech Stack Shields -->
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
@@ -23,10 +23,7 @@ This demo showcases:
 - Explainable AI decisions: Powered by Google Gemini via LangChain, every prompt and recommendation is transparent and human-readable.
 - Real-time impact tracking
 
-
 For technical details, see the agent architecture and code in `src/agents/core_agents.py`.
-**"Small pesos. Big ripple."**  
-*By the team that decided microdonations don't have to be boring or bureaucratic.*
 
 ## 🚩 THE CORE IDEA
 A smart donation layer embedded into BPI's VIBE payment ecosystem. It detects when users are most likely to give, nudges them with localized, hyper-relevant causes, and delivers verified proof when their change creates real-world impact.
