@@ -1,4 +1,3 @@
-
 # Vybe Change
 
 <!-- Tech Stack Shields -->
@@ -159,3 +158,11 @@ pytest tests/
 - See `pyproject.toml` and `requirements.txt` for dependencies.
 - For custom agent logic, see `src/agents/`.
 
+## 📊 Current State of the Code
+- **Tech Stack:** Python
+- **Repository Size:** 38 tracked files
+- **Latest Update:** `044c4c4 chore: add stale issue and PR validators`
+
+
+---
+*☕ If you found this project useful, you can support my work at [kape.stimmie.dev](https://kape.stimmie.dev)!*
