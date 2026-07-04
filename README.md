@@ -40,23 +40,23 @@ A smart donation layer embedded into BPI's VIBE payment ecosystem. It detects wh
 ## 📁 Project Structure
 ```
 vybe-change/
-├── README.md                    # This file - Product Reality Sheet
-├── api_server.py                # API server for backend integration
-├── dashboard.py                 # Main dashboard logic
-├── generate_demo_data.py        # Demo data generation
-├── model.py                     # Core ML model for donation likelihood
+├── README.md # This file - Product Reality Sheet
+├── api_server.py # API server for backend integration
+├── dashboard.py # Main dashboard logic
+├── generate_demo_data.py # Demo data generation
+├── model.py # Core ML model for donation likelihood
 ├── constants/
-│   └── ngos.py                  # NGO database and categories
+│ └── ngos.py # NGO database and categories
 ├── docs/
-│   ├── user-journey.md          # Detailed user journey mapping
-│   ├── agents/                  # AI agent specifications
-│   └── compliance.md            # Legal and regulatory considerations
+│ ├── user-journey.md # Detailed user journey mapping
+│ ├── agents/ # AI agent specifications
+│ └── compliance.md # Legal and regulatory considerations
 ├── src/
-│   ├── agents/                  # Core AI agents implementation
-│   ├── api/                     # API endpoints
-│   └── analytics/               # Impact tracking and reporting
-├── tests/                       # Test suites for all components
-└── streamlit_demo.py            # Streamlit deployment entrypoint
+│ ├── agents/ # Core AI agents implementation
+│ ├── api/ # API endpoints
+│ └── analytics/ # Impact tracking and reporting
+├── tests/ # Test suites for all components
+└── streamlit_demo.py # Streamlit deployment entrypoint
 ```
 
 ## Tech Stack
