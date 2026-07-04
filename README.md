@@ -1,6 +1,6 @@
 # Vybe Change
 
-<!-- Tech Stack Shields -->
+<!, Tech Stack Shields, >
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![Streamlit](https://img.shields.io/badge/Streamlit-Framework-red)
 ![LangChain](https://img.shields.io/badge/LangChain-Agentic%20AI-yellow)
@@ -73,41 +73,41 @@ vybe-change/
 ### Donation & Recommendation
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| POST   | /likelihood/analyze           | Analyze donation likelihood |
-| POST   | /causes/recommend            | Recommend causes for donation |
-| POST   | /amounts/optimize            | Suggest optimal donation amount |
-| POST   | /submit-donation             | Submit a donation |
-| GET    | /donations                   | List user donations |
+| POST | /likelihood/analyze | Analyze donation likelihood |
+| POST | /causes/recommend | Recommend causes for donation |
+| POST | /amounts/optimize | Suggest optimal donation amount |
+| POST | /submit-donation | Submit a donation |
+| GET | /donations | List user donations |
 
 ### User & Profile
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| POST   | /register                    | Register a new user |
-| GET    | /profile                     | Get user profile |
-| PUT    | /profile                     | Update user profile |
-| DELETE | /profile                     | Delete user profile |
-| GET    | /user/{user_id}/impact-summary | Get user's impact summary |
+| POST | /register | Register a new user |
+| GET | /profile | Get user profile |
+| PUT | /profile | Update user profile |
+| DELETE | /profile | Delete user profile |
+| GET | /user/{user_id}/impact-summary | Get user's impact summary |
 
 ### NGO & Causes
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| GET    | /ngos                        | List NGOs |
-| GET    | /ngos/{ngo_id}               | Get NGO details |
-| POST   | /ngo/{ngo_id}/submit-proof   | NGO submits proof of impact |
-| GET    | /causes                      | List available causes |
+| GET | /ngos | List NGOs |
+| GET | /ngos/{ngo_id} | Get NGO details |
+| POST | /ngo/{ngo_id}/submit-proof | NGO submits proof of impact |
+| GET | /causes | List available causes |
 
 ### Analytics & Insights
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| GET    | /analytics/dashboard         | Analytics dashboard |
-| GET    | /metrics/dashboard           | Metrics dashboard |
-| GET    | /platform/insights           | Platform insights |
-| GET    | /impact-report               | Get impact report |
+| GET | /analytics/dashboard | Analytics dashboard |
+| GET | /metrics/dashboard | Metrics dashboard |
+| GET | /platform/insights | Platform insights |
+| GET | /impact-report | Get impact report |
 
 ### System
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| GET    | /health                      | Health check |
+| GET | /health | Health check |
 
 ---
 
@@ -162,7 +162,6 @@ pytest tests/
 - **Tech Stack:** Python
 - **Repository Size:** 38 tracked files
 - **Latest Update:** `044c4c4 chore: add stale issue and PR validators`
-
 
 ---
 *☕ If you found this project useful, you can support my work at [kape.stimmie.dev](https://kape.stimmie.dev)!*
